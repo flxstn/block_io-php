@@ -5,7 +5,7 @@
  * OpenSSL functionality adapted from Jan Lindemann's BitcoinECDSA.php
  * @author Atif Nazir
  */
-
+/* 
 if (!extension_loaded('gmp')) {
     throw new \Exception('GMP extension seems not to be installed');
 }
@@ -17,7 +17,7 @@ if (!extension_loaded('mcrypt')) {
 if (!extension_loaded('curl')) {
     throw new \Exception('cURL extension seems not to be installed');
 }
-
+*/
 class BlockIo
 {
     
