@@ -102,6 +102,7 @@ class BlockIo
 	if ($method == 'GET') { $url .= '&' . $addedData; }
 
 	curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1'); // enforce use of TLSv1
+	//curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1.2');
         curl_setopt($ch, CURLOPT_URL, $url);
 
 	if ($method == 'POST')
@@ -114,11 +115,12 @@ class BlockIo
 
         // Execute the cURL request
         $result = curl_exec($ch);
+        $error = isset($json_result->data->error_message) ? $json_result->data->error_message : curl_error($ch);
         curl_close($ch);
 
 	$json_result = json_decode($result);
 
-	if ($json_result->status != 'success') { throw new Exception('Failed: ' . $json_result->data->error_message); }
+	if ($json_result->status != 'success') { throw new Exception('Block.io API call failed: ' . $error); }
 
         // Spit back the response object or fail
         return $result ? $json_result : false;        
